@@ -14,7 +14,7 @@ def creeCsv() -> None:
         # os.path.isfile dit si le fichier xxxx existe ou non (alors on répond TRUE/ FALSE)
         with open(nomFichier, mode="w", newline="") as csvfile:
             writer = csv.writer(csvfile)
-            writer.writerow(["villes","fourmis","iterations","alpha","beta","evaporation","meilleure_distance","temps_execution"])
+            writer.writerow(["villes","fourmis","iterations","alpha","beta","evaporation","meilleureDistance","tempsExecution"])
 
 def ajoutCsv(villes, fourmis, iterations, alpha, beta, evaporation, meilleureDistance, tempsExecution) -> None:
     """

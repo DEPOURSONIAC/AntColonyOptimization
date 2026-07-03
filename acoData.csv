@@ -1,2 +1,2 @@
-villes,fourmis,iterations,alpha,beta,evaporation,meilleure_distance,temps_execution
+villes,fourmis,iterations,alpha,beta,evaporation,meilleureDistance,tempsExecution
 100,100,50,1,1,1,934,6

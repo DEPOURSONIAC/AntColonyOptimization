@@ -138,7 +138,7 @@ Le but est d’expliquer le projet et comment il est structuré.
 ---
 
 ## GROSSO MODO
-Des fourmis explorent un chemin( plusisurs villes).
+Des fourmis explorent un chemin( plusieurs villes).
 
 Elles laissent des traces.
 Les bonnes solutions sont renforcées.
