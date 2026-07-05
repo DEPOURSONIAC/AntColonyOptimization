@@ -14,9 +14,9 @@ def creeCsv() -> None:
         # os.path.isfile dit si le fichier xxxx existe ou non (alors on répond TRUE/ FALSE)
         with open(nomFichier, mode="w", newline="") as csvfile:
             writer = csv.writer(csvfile)
-            writer.writerow(["villes","fourmis","iterations","alpha","beta","evaporation","meilleureDistance","tempsExecution"])
+            writer.writerow(["villes","fourmis","iterations","alpha","beta", 'Q', "evaporation","meilleureDistance","tempsExecution"])
 
-def ajoutCsv(villes, fourmis, iterations, alpha, beta, evaporation, meilleureDistance, tempsExecution) -> None:
+def ajoutCsv(villes, fourmis, iterations, alpha, beta, evaporation, q, meilleureDistance, tempsExecution) -> None:
     """
     Ajoute une simulation dans le fichier CSV.
     """
@@ -24,7 +24,7 @@ def ajoutCsv(villes, fourmis, iterations, alpha, beta, evaporation, meilleureDis
 
     with open(nomFichier, mode="a", newline="") as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow([villes,fourmis,iterations,alpha,beta,evaporation,meilleureDistance,tempsExecution])
+        writer.writerow([villes, fourmis, iterations, alpha, beta, evaporation, q, meilleureDistance, tempsExecution])
 
 def lireCsv() -> list:
     """
@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
     creeCsv()
 
-    ajoutCsv(100, 100, 50, 1, 1, 1,  934, 6)
+    ajoutCsv(100, 100, 50, 1, 1, 1,1, 934, 6)
 
     donnees = lireCsv()
 

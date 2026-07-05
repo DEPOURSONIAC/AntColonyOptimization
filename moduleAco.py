@@ -17,16 +17,11 @@ import numpy as np
 import tools
 import time
 
-# Décla des constantes (en MAJUSCULES)
 
-ALPHA       : float = 1.0
-BETA        : float = 1.0
-EVAPORATION : float = 0.5
-Q           : float = 100 # Ratio du nombre de phéromone sur une route/ chemin
 
 
 # fonctions
-def ACO(nombreVilles: int = 100, nombreFourmis: int = 100, nombreIterations: int = 50) -> tuple:
+def ACO(nombreVilles: int = 100, nombreFourmis: int = 100, nombreIterations: int = 50, ALPHA: float = 1.0, BETA: float = 1.0, EVAPORATION: float = 0.5, Q: float = 100) -> tuple:
     """
     ACO (Ant Colony Optimization)
 
@@ -164,10 +159,25 @@ def ACO(nombreVilles: int = 100, nombreFourmis: int = 100, nombreIterations: int
 
 
 if __name__ == "__main__":
+    # python3 moduleAco.py
     # Test
+    
 
-    chemin, dist, tps, villes, distances = ACO(50, 50, 10)
+    # Décla des constantes (en MAJUSCULES)
+
+    ALPHA       : float = 1.0
+    BETA        : float = 1.0
+    EVAPORATION : float = 0.5
+    Q           : float = 100 # Ratio du nombre de phéromone sur une route/ chemin
+
+    chemin, dist, tps, villes, distances = ACO(50, 50, 10, ALPHA, BETA, EVAPORATION, Q)
 
     print("Distance :", dist)
     print("Temps :", tps)
 
+"""
+/home/simsim/Bureau/SimSim/projet/ACO/AntColonyOptimization-ACO-main/moduleAco.py
+
+Distance : 704.2220983978293
+Temps : 1.1134619900001326
+"""

@@ -10,6 +10,7 @@ Ce fichier sert à lancer la simulation de l'algo du ACO:
 
 """
 
+
 if __name__ == "__main__":
     # python3 main.py
 
@@ -18,8 +19,16 @@ if __name__ == "__main__":
     nombreFourmis    : int = 100
     nombreIterations : int = 50
 
+ 
+    # Décla des constantes (en MAJUSCULES)
+
+    ALPHA       : float = 1.0
+    BETA        : float = 1.0
+    EVAPORATION : float = 0.5
+    Q           : float = 100 # Ratio du nombre de phéromone sur une route/ chemin
+
     # ACO exécuté
-    chemin, dist, tps, villes, distances = ACO(nombreVilles, nombreFourmis, nombreIterations )
+    chemin, dist, tps, villes, distances = ACO(nombreVilles, nombreFourmis, nombreIterations, ALPHA, BETA, EVAPORATION, Q)
 
     # Affiche les données
     print("Distance :", dist)
@@ -44,7 +53,7 @@ if __name__ == "__main__":
     nombreIterations : int = 5
 
 
-\PROJET\AntColonyOptimization-ACO-main> python3 .\main.py
+
 Distance : 1920.8125863529972
 Temps : 2.645312399999966
 Chemin : [37, 51, 91, 62, 15, 39, 58, 89, 36, 97, 24, 7, 55, 67, 35, 31, 34, 60, 71, 85, 54, 73, 61, 13, 26, 83, 80, 52, 27, 9, 50, 32, 95, 30, 72, 20, 82, 33, 45, 12, 69, 3, 40, 96, 19, 76, 93, 21, 10, 59, 65, 8, 6, 66, 5, 86, 63, 49, 22, 99, 68, 42, 81, 84, 17, 94, 11, 79, 14, 98, 77, 70, 16, 23, 78, 64, 53, 88, 25, 44, 57, 92, 87, 29, 47, 46, 4, 28, 41, 2, 56, 1, 74, 90, 18, 48, 38, 75, 0, 43, 37]
