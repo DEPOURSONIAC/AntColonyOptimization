@@ -1,5 +1,9 @@
 # coding: utf-8
 
+import random
+import numpy as np
+import tools
+import time
 
 """
 Module ACO (Ant Colony Optimization)
@@ -11,16 +15,7 @@ Il gère le meilleur chemin entre les villes:
     - l'évaporation  et le dépot des phéromones
 
 """
-# On récupère les modules/ blibli
-import random
-import numpy as np
-import tools
-import time
 
-
-
-
-# fonctions
 def ACO(nombreVilles: int = 100, nombreFourmis: int = 100, nombreIterations: int = 50, ALPHA: float = 1.0, BETA: float = 1.0, EVAPORATION: float = 0.5, Q: float = 100) -> tuple:
     """
     ACO (Ant Colony Optimization)
@@ -45,7 +40,7 @@ def ACO(nombreVilles: int = 100, nombreFourmis: int = 100, nombreIterations: int
     """
 
     # Décla des variables
-    debut = time.perf_counter()
+    debut: float = time.perf_counter()
 
     meilleurChemin   = None
     meilleurDistance = np.inf
@@ -54,7 +49,7 @@ def ACO(nombreVilles: int = 100, nombreFourmis: int = 100, nombreIterations: int
     distances = tools.matriceDistanceEuclidienne(villes)
 
     # Matrice des phéromones : toutes les valeurs sont mises à 1. Elle sert à aider les fourmis dans le choix des chemins
-    MatricePheromones : np.ndarray = np.ones((nombreVilles, nombreVilles))
+    MatricePheromones: np.ndarray = np.ones((nombreVilles, nombreVilles))
 
     # Algo du ACO
     for iteration in range(nombreIterations):
@@ -103,7 +98,6 @@ def ACO(nombreVilles: int = 100, nombreFourmis: int = 100, nombreIterations: int
                 else:
                     # Sinon cela veut dire qu'on a récuper plusierus données (proba brut pour chaque ville )
                     
-                    
                     # On a des données brut donc le but est de les convertir en vrai proba par exemple :
                     # proba[10,20,70]-> ingérable et trop brute donc convertion :
                     # nouvelleProba[0.1,0.2,0.7]-> Traitable, soit p(e), la proba d'un évenement:
@@ -111,7 +105,7 @@ def ACO(nombreVilles: int = 100, nombreFourmis: int = 100, nombreIterations: int
 
                     proba = [p / sommeScores for p in proba]
 
-                # On utilsie choice car ça choisit une ville en fct des probas (pondéré)
+                # On utilise choice car ça choisit une ville en fct des probas (pondéré)
                 choixVille = random.choices(villesAccessibles, weights=proba, k=1)[0]
 
                 cheminFourmi.append(choixVille)
@@ -152,16 +146,14 @@ def ACO(nombreVilles: int = 100, nombreFourmis: int = 100, nombreIterations: int
                 MatricePheromones[villeSuivante][villeActuelle] += depot
 
     # Mesurer le temps que ça prends
-    fin = time.perf_counter()
-    deltaT = fin - debut
+    fin: float = time.perf_counter()
+    deltaT: float = fin - debut
 
     return (meilleurChemin, meilleurDistance, deltaT, villes, distances)
 
 
 if __name__ == "__main__":
     # python3 moduleAco.py
-    # Test
-    
 
     # Décla des constantes (en MAJUSCULES)
 
@@ -174,10 +166,3 @@ if __name__ == "__main__":
 
     print("Distance :", dist)
     print("Temps :", tps)
-
-"""
-/home/simsim/Bureau/SimSim/projet/ACO/AntColonyOptimization-ACO-main/moduleAco.py
-
-Distance : 704.2220983978293
-Temps : 1.1134619900001326
-"""

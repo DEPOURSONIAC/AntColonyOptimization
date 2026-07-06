@@ -1,16 +1,16 @@
 # coding: utf-8
+
 import random
 import numpy as np
+
 """
 Module d’outils pour l’algorithme de colonie de fourmis (ACO) :
 génération des villes, distance euclidienne et matrice des distances.
 
 """
 
-
 # Pour fixer l'aléatoire
 random.seed(100)
-
 
 def creationDesVilles(nombreVilles: int = 100) -> dict:
     """
@@ -30,13 +30,13 @@ def creationDesVilles(nombreVilles: int = 100) -> dict:
     """
     
     # Déclaration des variables
-    villes : dict = {}
-    dejaVus = set() # Vérification des doublons avec set() -> fonction native de Python
+    villes:  dict = {}
+    dejaVus: set  = set() # Vérification des doublons avec set() -> fonction native de Python
 
     # Création des villes
     for ville in range(nombreVilles):
 
-        verifDoublon = True
+        verifDoublon: bool = True
 
         while (verifDoublon):
 
@@ -46,7 +46,8 @@ def creationDesVilles(nombreVilles: int = 100) -> dict:
                 dejaVus.add(coordonnees)
                 villes[ville] = coordonnees
                 verifDoublon = False
-    return (villes)
+    
+    return villes
 
 def distanceEuclidienne (villeA: tuple, villeB: tuple)-> float:
     """
@@ -69,7 +70,7 @@ def distanceEuclidienne (villeA: tuple, villeB: tuple)-> float:
     deltaX: float = (villeA[0] - villeB[0])
     deltaY: float = (villeA[1] - villeB[1])
 
-    return  float((np.sqrt((deltaX**2 + deltaY**2))))
+    return float(np.sqrt(deltaX**2 + deltaY**2))
 
 def matriceDistanceEuclidienne(villes: dict) -> np.ndarray:
     """
@@ -105,23 +106,21 @@ def matriceDistanceEuclidienne(villes: dict) -> np.ndarray:
             matriceDistance[i][j] = distance
             matriceDistance[j][i] = distance
 
-    return (matriceDistance)
+    return matriceDistance
 
 if __name__ == "__main__":
     # python3 tools.py
-
-    # print('HelloWorld')
     
     print ("----------TEST----------")
 
     # Décla des variables
     villes: dict = {}
-    nombreVilles: int
+    nombreVilles:  int
 
     # Saisie du user du nombre de villes
-    nombreVilles = int(input("Saisir le nombre de villes: "))
+    nombreVilles: int  = int(input("Saisir le nombre de villes: "))
 
-    # Créa des 5 villes( pour le test)
+    # Création des villes (pour le test)
     villes = creationDesVilles(nombreVilles)
     print("\nVilles générées :")
     print(villes)
@@ -141,32 +140,3 @@ if __name__ == "__main__":
     print("\nDiagonale (doit être 0) :")
     for i in range(nombreVilles):
         print(f"ville {i} -> {matriceDistance[i][i]}")
-
-"""
-Résultats du programme :
-
-----------TEST----------
-Saisir le nombre de villes: 5
-
-Villes générées :
-{0: (18, 58), 1: (58, 98), 2: (22, 90), 3: (50, 93), 4: (44, 55)}
-
-Distance entre ville 0 et 1 :
-56.568542494923804
-
-Matrice des distances :
-[[ 0.         56.56854249 32.24903099 47.42362281 26.17250466]
- [56.56854249  0.         36.87817783  9.43398113 45.22167622]
- [32.24903099 36.87817783  0.         28.16025568 41.34005322]
- [47.42362281  9.43398113 28.16025568  0.         38.47076812]
- [26.17250466 45.22167622 41.34005322 38.47076812  0.        ]]
-
-Diagonale (doit être 0) :
-ville 0 -> 0.0
-ville 1 -> 0.0
-ville 2 -> 0.0
-ville 3 -> 0.0
-ville 4 -> 0.0
-
-"""
-    
