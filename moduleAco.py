@@ -149,7 +149,7 @@ def ACO(nombreVilles: int = 100, nombreFourmis: int = 100, nombreIterations: int
     fin: float = time.perf_counter()
     deltaT: float = fin - debut
 
-    return (meilleurChemin, meilleurDistance, deltaT, villes)
+    return meilleurChemin, meilleurDistance, deltaT, villes
 
 
 if __name__ == "__main__":
