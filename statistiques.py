@@ -1,10 +1,11 @@
 # coding: utf-8
 
+import numpy as np
 import moduleAco
 import csvGestion
 
 
-def statistic()-> None:
+def statistic()-> tuple | None:
     """
     statistic():
 
@@ -24,7 +25,8 @@ def statistic()-> None:
                 un seul paramètre choisi par le user
 
     Return :
-        - None
+        - None s'il y a rien
+        - meilleurDistance et meilleurChemin
     """
 
 
@@ -36,6 +38,7 @@ def statistic()-> None:
     nombreVilles = int(input("\nNombre de villes : "))
 
     cheminFinal : dict = dict()
+    distanceFinal      = np.inf
 
     nombreFourmis    : int = 100
     nombreIterations : int = 50
@@ -98,9 +101,12 @@ def statistic()-> None:
                 return
 
         # Lancement de la simulation
-        chemin, distance, temps, villes, distances = moduleAco.ACO(nombreVilles, nbFourmis, nbIterations, alpha, beta, evaporation, q)
+        chemin, distance, temps= moduleAco.ACO(nombreVilles, nbFourmis, nbIterations, alpha, beta, evaporation, q)
 
-        cheminFinal = chemin
+        if distance < distanceFinal:
+            cheminFinal   = chemin
+            distanceFinal = distance
+
 
         print("\n----------")
         print("Valeur testée :", valeur)
@@ -112,9 +118,16 @@ def statistic()-> None:
 
         valeur += pas
 
+
     print("\nToutes les simulations sont terminées.")
 
-    return (cheminFinal)
+    print("\n____________________________")
+    print("Meilleur résultat obtenu")
+    print("____________________________")
+    print(f"Distance : {distanceFinal}")
+    print(f"Chemin   : {cheminFinal}")
+
+    return cheminFinal, distanceFinal
 
 if __name__ == "__main__":
     # python3 statistiques.py
@@ -122,3 +135,4 @@ if __name__ == "__main__":
     print("Simulation / Test\n")
 
     statistic()
+    

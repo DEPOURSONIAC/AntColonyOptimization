@@ -149,7 +149,7 @@ def ACO(nombreVilles: int = 100, nombreFourmis: int = 100, nombreIterations: int
     fin: float = time.perf_counter()
     deltaT: float = fin - debut
 
-    return meilleurChemin, meilleurDistance, deltaT, villes
+    return meilleurChemin, meilleurDistance, deltaT
 
 
 if __name__ == "__main__":
@@ -162,7 +162,7 @@ if __name__ == "__main__":
     EVAPORATION : float = 0.5
     Q           : float = 100 # Ratio du nombre de phéromone sur une route/ chemin
 
-    chemin, meilleurDistance, tps, villes = ACO(50, 50, 10, ALPHA, BETA, EVAPORATION, Q)
+    chemin, meilleurDistance, tps = ACO(50, 50, 10, ALPHA, BETA, EVAPORATION, Q)
 
     print("Distance :", meilleurDistance)
     print("Temps :", tps)
