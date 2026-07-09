@@ -6,7 +6,7 @@ from tools import creationDesVilles
 import csvGestion
 
 
-def statistic()-> tuple | None:
+def statistic() -> tuple | None:
     """
     statistic():
 
@@ -30,24 +30,53 @@ def statistic()-> tuple | None:
         - meilleurDistance et meilleurChemin
     """
 
-
     print("-------------------------")
     print("----- Statistique ACO ----")
     print("-------------------------")
 
     # Décla des variables par défauts
     nombreVilles = int(input("\nNombre de villes : "))
+    villes = creationDesVilles(nombreVilles)
 
-    cheminFinal : dict = dict()
-    distanceFinal      = np.inf
+    cheminFinal: dict = dict()
+    distanceFinal = np.inf
 
-    nombreFourmis    : int = 100
-    nombreIterations : int = 50
+    # Para par défaut
+    nombreFourmis: int = 100
+    nombreIterations: int = 50
 
-    ALPHA       : float  = 1.0
-    BETA        : float  = 1.0
-    EVAPORATION : float  = 0.5
-    Q           : float  = 100.0
+    ALPHA: float = 1.0
+    BETA: float = 1.0
+    EVAPORATION: float = 0.5
+    Q: float = 100.0
+
+    print("\nParamètres :")
+    print("1 - Utiliser les paramètres par défaut")
+    print("2 - Personnaliser les paramètres")
+
+    choix = input("\nVotre choix : ")
+
+    if choix == "2":
+
+        # Le user modiife tous les paramètres
+        nombreFourmis = int(input("\nNombre de fourmis : "))
+        nombreIterations = int(input("\nNombre d'itérations : "))
+
+        ALPHA = float(input("\nALPHA : "))
+        BETA = float(input("\nBETA : "))
+        EVAPORATION = float(input("\nEVAPORATION : "))
+        Q = float(input("\nQ : "))
+
+    print("\n----------------------------")
+    print("Paramètres de la simulation")
+    print("----------------------------")
+    print(f"Nombre de villes      : {nombreVilles}")
+    print(f"Nombre de fourmis     : {nombreFourmis}")
+    print(f"Nombre d'itérations   : {nombreIterations}")
+    print(f"ALPHA                 : {ALPHA}")
+    print(f"BETA                  : {BETA}")
+    print(f"EVAPORATION           : {EVAPORATION}")
+    print(f"Q                     : {Q}")
 
     print("\nQuel paramètre voulez-vous faire varier ?")
     print("1 - Nombre de fourmis")
@@ -67,7 +96,6 @@ def statistic()-> tuple | None:
 
     while valeur <= maximum:
 
-        # On repart des valeurs par défaut
         nbFourmis = nombreFourmis
         nbIterations = nombreIterations
 
@@ -77,7 +105,7 @@ def statistic()-> tuple | None:
         q = Q
 
         # On modifie uniquement le paramètre du user
-        match choixUser: # Comme le switch/ case en C/C++/JAVA/PHP -> Comme les if/elif/else mais en mieux
+        match choixUser:  # Comme le switch/case en C/C++/JAVA/PHP -> Comme les if/elif/else mais en mieux
 
             case 1:
                 nbFourmis = int(valeur)
@@ -98,44 +126,39 @@ def statistic()-> tuple | None:
                 q = valeur
 
             case _:
-                print("Choix invalide.")
-                return
+                print("Erreur :(")
 
         # Lancement de la simulation
-        
-        villes = creationDesVilles(nombreVilles)
-        chemin, distance, temps= moduleAco.ACO(villes, nbFourmis, nbIterations, alpha, beta, evaporation, q)
+        chemin, distance, temps = moduleAco.ACO( villes, nbFourmis, nbIterations, alpha, beta, evaporation, q)
 
         if distance < distanceFinal:
-            cheminFinal   = chemin
+            cheminFinal = chemin
             distanceFinal = distance
 
-
         print("\n----------")
-        print("Valeur testée :", valeur)
-        print("Distance :", distance)
-        print("Temps :", temps)
+        print(f"Valeur testée : {valeur}")
+        print(f"Distance      : {distance}")
+        print(f"Temps         : {temps}")
 
-        #  On ajoute dans le CSV
-        csvGestion.ajoutCsv(nombreVilles, nbFourmis, nbIterations,alpha, beta,evaporation, q, distance, temps)
+        # On ajoute dans le CSV
+        csvGestion.ajoutCsv(nombreVilles, nbFourmis, nbIterations, alpha, beta, evaporation, q, distance, temps)
 
         valeur += pas
 
-
     print("\nToutes les simulations sont terminées.")
-
     print("\n____________________________")
     print("Meilleur résultat obtenu")
     print("____________________________")
+    
     print(f"Distance : {distanceFinal}")
     print(f"Chemin   : {cheminFinal}")
 
     return cheminFinal, distanceFinal, villes
 
+
 if __name__ == "__main__":
-    # python3 statistiques.py
+    # python3 statistiques.py
 
     print("Simulation / Test\n")
 
     statistic()
-    
