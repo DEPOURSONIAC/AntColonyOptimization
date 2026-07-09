@@ -16,12 +16,12 @@ Il gère le meilleur chemin entre les villes:
 
 """
 
-def ACO(nombreVilles: int = 100, nombreFourmis: int = 100, nombreIterations: int = 50, ALPHA: float = 1.0, BETA: float = 1.0, EVAPORATION: float = 0.5, Q: float = 100) -> tuple:
+def ACO(villes : dict, nombreFourmis: int = 100, nombreIterations: int = 50, ALPHA: float = 1.0, BETA: float = 1.0, EVAPORATION: float = 0.5, Q: float = 100) -> tuple:
     """
     ACO (Ant Colony Optimization)
 
     Paramètres :
-        - nombreVilles      (int)    : nombre total de villes du problème
+        - villes            (dict)   : dictionnaire des villes de la forme-> {1: (x, y), 2: (x', y')}
         - nombreFourmis     (int)    : nombre de fourmis utilisées à chaque itération
         - nombreIterations  (int)    : nombre de cycles d’exécution de l’algorithme
 
@@ -42,10 +42,11 @@ def ACO(nombreVilles: int = 100, nombreFourmis: int = 100, nombreIterations: int
     # Décla des variables
     debut: float = time.perf_counter()
 
-    meilleurChemin   = None
+    meilleurChemin: list[int] | None = None
     meilleurDistance = np.inf
 
-    villes    = tools.creationDesVilles(nombreVilles)
+    nombreVilles = len(villes)
+
     distances = tools.matriceDistanceEuclidienne(villes)
 
     # Matrice des phéromones : toutes les valeurs sont mises à 1. Elle sert à aider les fourmis dans le choix des chemins
@@ -162,7 +163,9 @@ if __name__ == "__main__":
     EVAPORATION : float = 0.5
     Q           : float = 100 # Ratio du nombre de phéromone sur une route/ chemin
 
-    chemin, meilleurDistance, tps = ACO(50, 50, 10, ALPHA, BETA, EVAPORATION, Q)
+    villes    = tools.creationDesVilles(100)
+
+    chemin, meilleurDistance, tps = ACO(villes, 100, 50, ALPHA, BETA, EVAPORATION, Q)
 
     print("Distance :", meilleurDistance)
     print("Temps :", tps)
