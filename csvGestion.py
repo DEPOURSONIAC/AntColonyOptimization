@@ -1,11 +1,15 @@
 # coding: utf-8
 
+from datetime import datetime
 import os
 import csv
+import shutil
 
 """
 Gestion des fichiers CSV pour l'import et l'export des données.
 """
+
+nomFichier: str = "acoData.csv"
 
 def creeCsv() -> None:
     """
@@ -22,7 +26,7 @@ def creeCsv() -> None:
         - None
     """
 
-    nomFichier : str = "acoData.csv"
+    global nomFichier
 
     if not os.path.isfile(nomFichier):
 
@@ -54,7 +58,7 @@ def ajoutCsv(villes: float, fourmis: float, iterations: float, alpha: int, beta:
         - None
     """
 
-    nomFichier: str = "acoData.csv"
+    global nomFichier
 
     with open(nomFichier, mode="a", newline="") as csvfile:
         writer = csv.writer(csvfile)
@@ -68,12 +72,12 @@ def lireCsv() -> list:
                 - aucun
 
             Création :
-                - Lit toutes les données du CSV
+                - lit toutes les données du CSV
         Return :
             - liste des données
     """
     
-    nomFichier: str = "acoData.csv"
+    global nomFichier
     donnees : list = list()
 
     with open(nomFichier, mode="r", newline="") as csvfile:
@@ -92,7 +96,7 @@ def lireColonne(nomColonne: str)->list:
                 - nomColonne (string) :  un nom de colonne parmit : villes, fourmis, iterations, alpha, beta,  Q,evaporation, meilleureDistance, tempsExecution
 
             Explication :
-                - Choisit l'entete et en fonction de celui-ci récupère le paramètre
+                - choisit l'entete et en fonction de celui-ci récupère le paramètre
         Return :
             - liste des données en fct de la colonne
     
@@ -109,6 +113,47 @@ def lireColonne(nomColonne: str)->list:
 
     return colonne
 
+def sauvegarderCSV(nomFichier: str)-> None:
+    """     
+    sauvegarderCSV(nomFichier):
+
+            Para :
+                - nomFichier (string) :  le fichier qu'on sauvegarde
+
+            Explication :
+                - on sauvegarde le fichier dans le repertoire sauvegarde avec comme nonmle datetime (l'heure de la sauvegarde)
+        Return :
+            - None
+    
+    """
+    
+    # On vérifie si le dossier existe sinon on le crée
+    os.makedirs("sauvegardes", exist_ok=True)
+    
+    temps = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+    nomSauvegarde = os.path.join("sauvegardes", f"{temps}.csv")
+
+    shutil.copy(nomFichier, nomSauvegarde)
+    
+def viderCSV(nomFichier: str)-> None:
+    """
+    viderCSV(nomFichier):
+
+            Para :
+                - nomFichier (string) :  le fichier a vider 
+
+            Explication :
+                - on vide le fichier sauf l'entete
+        Return :
+            - None
+    
+    """
+    with open(nomFichier, mode="w", newline="") as csvfile:
+
+            writer = csv.writer(csvfile)
+            writer.writerow(["villes","fourmis","iterations","alpha","beta", 'Q', "evaporation","meilleureDistance","tempsExecution"])
+
 if __name__ == "__main__":
     # python3 csvGestion.py
 
@@ -123,3 +168,7 @@ if __name__ == "__main__":
         print(ligne)
 
     print(lireColonne('meilleureDistance'))
+
+
+    sauvegarderCSV(nomFichier)
+    viderCSV(nomFichier)

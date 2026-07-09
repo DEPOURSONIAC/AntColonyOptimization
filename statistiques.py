@@ -2,6 +2,7 @@
 
 import numpy as np
 import moduleAco
+from tools import creationDesVilles
 import csvGestion
 
 
@@ -101,7 +102,9 @@ def statistic()-> tuple | None:
                 return
 
         # Lancement de la simulation
-        chemin, distance, temps= moduleAco.ACO(nombreVilles, nbFourmis, nbIterations, alpha, beta, evaporation, q)
+        
+        villes = creationDesVilles(nombreVilles)
+        chemin, distance, temps= moduleAco.ACO(villes, nbFourmis, nbIterations, alpha, beta, evaporation, q)
 
         if distance < distanceFinal:
             cheminFinal   = chemin
@@ -127,7 +130,7 @@ def statistic()-> tuple | None:
     print(f"Distance : {distanceFinal}")
     print(f"Chemin   : {cheminFinal}")
 
-    return cheminFinal, distanceFinal
+    return cheminFinal, distanceFinal, villes
 
 if __name__ == "__main__":
     # python3 statistiques.py
