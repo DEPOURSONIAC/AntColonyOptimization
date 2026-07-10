@@ -210,26 +210,34 @@ def afficherGraphe(villes: dict, meilleurChemin: list)->None:
     plt.show()
 
 if __name__ == "__main__":
-    # python3 visualisation.py
+    # python3 visualisation.py
+
     import tools
     import statistiques
 
-    choixUser: int = int(input("Afficher statistiques / afficher graphe [1,2] : "))
+    try:
 
-    if choixUser == 1:
-        afficherDistance()
-        afficherTemps()
-        afficherFourmis()
-        afficherAlpha()
-        afficherBeta()
-        afficherEvaporation()
+        resultat = statistiques.statistic()
 
-    elif choixUser == 2:
-        meilleurChemin, _ , villes= statistiques.statistic()
+        if resultat != None:
 
-        
+            meilleurChemin, _, villes = resultat
 
-        afficherGraphe(villes, meilleurChemin)
+            choixUser: int = int(input("Afficher statistiques / afficher graphe [1,2] : "))
 
-    else:
-        print("Erreur")
+            if choixUser == 1:
+                afficherDistance()
+                afficherTemps()
+                afficherFourmis()
+                afficherAlpha()
+                afficherBeta()
+                afficherEvaporation()
+
+            elif choixUser == 2:
+                afficherGraphe(villes, meilleurChemin)
+
+            else:
+                print("Erreur")
+
+    except ValueError as erreur:
+        print(f"Erreur : {erreur}")
