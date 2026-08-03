@@ -31,18 +31,42 @@ if __name__ == "__main__":
     chemin, dist, tps, villes, distances = ACO(nombreVilles, nombreFourmis, nombreIterations, ALPHA, BETA, EVAPORATION, Q)
 
     # Affiche les données
+    
+    def greek(n):
+        s = ""
+        for k in range(n):
+            s +="┌───┐ "
+        s += "\n"
+        for k in range(n):
+            s +="│ ┌─┘ "
+        s += "\n"
+        for k in range(n):
+            s +="┘ └───"
+        s += "\n"
+        return s
+
+    print(greek(9))
+    print("=" * 50)
+    print(" RÉSULTATS DE L'ALGORITHME")
+    print("=" * 50)   
+    
     print("Distance :", dist)
     print("Temps :", tps)
     print("Chemin :", chemin)
-
+    print("\n" + "=" * 50)
+    print(" MATRICE DES DISTANCES") 
+    print("=" * 50)
     # Matrice des distances
     print("\nMatrice des distances :")
     print(distances)
-
+    print("\n" + "=" * 50) 
+    print(" Ville ACO ") 
+    print("=" * 50)
     # Villes du ACO
     print("\nVilles du ACO :")
     print(villes)
-
+    print("=" * 50)
+    print(greek(9))
 """
 # TEST
 
