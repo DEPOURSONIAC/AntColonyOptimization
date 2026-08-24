@@ -9,15 +9,14 @@ génération des villes, distance euclidienne et matrice des distances.
 
 """
 
-# Pour fixer l'aléatoire
-random.seed(100)
 
-def creationDesVilles(nombreVilles: int = 100) -> dict:
+def creationDesVilles(nombreVilles: int = 100, seed: int | None = None) -> dict[int, tuple[int, int]]:
     """
-    creationDesVilles(nomvreVilles):
+    creationDesVilles(nombreVilles, seed):
 
         Para :
             - nombreVilles (int) : nombre de villes à générer (par défaut 100)
+            - seed (int | None) : permet de fixer l'aléatoire (par défaut None)
 
         Création :
             - boucle de 0 à nombreVilles - 1
@@ -28,38 +27,51 @@ def creationDesVilles(nombreVilles: int = 100) -> dict:
         - dictionnaire des villes sous la forme :
             -{id_ville: (x, y)}
     """
-    
+
+    # Vérification du nombre de villes
+    if nombreVilles < 2:
+        raise ValueError("Le nombre de villes doit être supérieur ou égal à 2.")
+
+    # 101 * 101 = 10201 coordonnées possibles
+    if nombreVilles > 10201:
+        raise ValueError("Impossible de générer plus de 10201 villes avec cette plage de coordonnées. (Les coordonnées allant de 0 à 100, donc 101 × 101 = 10 201.)")
+
+    # Pour fixer l'aléatoire si un seed est fourni
+    if seed is not None:
+        random.seed(seed)
+
     # Déclaration des variables
-    villes:  dict = {}
-    dejaVus: set  = set() # Vérification des doublons avec set() -> fonction native de Python
+    villes: dict[int, tuple[int, int]] = {}
+    dejaVus: set = set()  # Vérification des doublons avec set() -> fonction native de Python
 
     # Création des villes
     for ville in range(nombreVilles):
 
         verifDoublon: bool = True
 
-        while (verifDoublon):
+        while verifDoublon:
 
             coordonnees: tuple = (random.randint(0, 100), random.randint(0, 100))
 
-            if (coordonnees not in dejaVus):
+            if coordonnees not in dejaVus:
                 dejaVus.add(coordonnees)
                 villes[ville] = coordonnees
                 verifDoublon = False
-    
+
     return villes
 
-def distanceEuclidienne (villeA: tuple, villeB: tuple)-> float:
+
+def distanceEuclidienne(villeA: tuple, villeB: tuple) -> float:
     """
     distanceEuclidienne():
 
         Para :
             -villeA (tuple) : villeA (tuple) : coordonnées (x, y) de la première ville
             -villeB (tuple) : villeB (tuple) : coordonnées (x, y) de la deuxième ville
-        
+
         Création :
-            -  calcul de la différence en x (deltaX)
-            -  calcul de la différence en y (deltaY)
+            - calcul de la différence en x (deltaX)
+            - calcul de la différence en y (deltaY)
                 - on calculte la distance entre la villeA et la villeB
 
     Return :
@@ -67,10 +79,11 @@ def distanceEuclidienne (villeA: tuple, villeB: tuple)-> float:
 
     """
 
-    deltaX: float = (villeA[0] - villeB[0])
-    deltaY: float = (villeA[1] - villeB[1])
+    deltaX: float = villeA[0] - villeB[0]
+    deltaY: float = villeA[1] - villeB[1]
 
     return float(np.sqrt(deltaX**2 + deltaY**2))
+
 
 def matriceDistanceEuclidienne(villes: dict) -> np.ndarray:
     """
@@ -108,24 +121,23 @@ def matriceDistanceEuclidienne(villes: dict) -> np.ndarray:
 
     return matriceDistance
 
+
 if __name__ == "__main__":
     # python3 tools.py
-    
-    print ("----------TEST----------")
+
+    print("----------TEST----------")
 
     # Décla des variables
     villes: dict = {}
-    nombreVilles:  int
+    nombreVilles: int
 
-    # Saisie du user du nombre de villes
-    nombreVilles: int  = int(input("Saisir le nombre de villes: "))
+    # Saisie de l'utilisateur du nombre de villes
+    nombreVilles: int = int(input("Saisir le nombre de villes: "))
 
     # Création des villes (pour le test)
     villes = creationDesVilles(nombreVilles)
     print("\nVilles générées :")
     print(villes)
-
-
 
     # Test des distances entre ville0 et ville1
     print("\nDistance entre ville 0 et 1 :")
