@@ -1,110 +1,154 @@
 # coding: utf-8
 
 import matplotlib.pyplot as plt
+
 from csvGestion import lireColonne
+import statistiques
+
 
 """
-Module contenant les fonctions de visualisation des données et des résultats.
+Module contenant les fonctions de visualisation des données et des results.
 """
 
-def afficherDistance()-> None:
+
+def afficherHistorique(historiqueDistance: list[float]) -> None:
+    """
+    afficherHistorique(historiqueDistance):
+
+        Paramètre :
+            - historiqueDistance (list[float]) :
+                meilleure distance obtenue à chaque itération.
+
+        Création :
+            - génère la courbe de convergence de l'ACO.
+
+        Retour :
+            - None
+    """
+
+    iterations = range(1, len(historiqueDistance) + 1)
+
+    plt.figure("Convergence ACO")
+
+    plt.plot(iterations, historiqueDistance, marker="o")
+
+    plt.title("Convergence de l'algorithme ACO")
+    plt.xlabel("Itérations")
+    plt.ylabel("Meilleure distance")
+
+    plt.grid(True)
+    plt.show()
+
+
+def afficherDistance() -> None:
     """
     afficherDistance():
 
-        Para :
+        Paramètre :
             - aucun
 
         Création :
-            - génère la distance en fct du nb d'itérations
+            - affiche la distance finale obtenue pour chaque expérience
+              en fonction du nombre d'itérations configuré.
 
-    Return :
-        - None
+        Retour :
+            - None
     """
 
     iterations = lireColonne("iterations")
     distance = lireColonne("meilleureDistance")
 
+    plt.figure("Distance / Itérations")
+
     plt.plot(iterations, distance, marker="o")
 
-    plt.xlabel("Itérations")
+    plt.xlabel("Nombre d'itérations")
     plt.ylabel("Distance")
-    plt.title("Évolution de la meilleure distance")
+    plt.title("Distance finale en fonction des itérations")
 
     plt.grid(True)
     plt.show()
 
-def afficherTemps()-> None:
+
+def afficherTemps() -> None:
     """
     afficherTemps():
 
-        Para :
+        Paramètre :
             - aucun
 
         Création :
-            - génère le temps en fct du nb d'itérations
+            - affiche le temps d'exécution en fonction
+              du nombre d'itérations configuré.
 
-    Return :
-        - None
+        Retour :
+            - None
     """
+
     iterations = lireColonne("iterations")
     temps = lireColonne("tempsExecution")
 
     plt.figure("Temps d'exécution")
+
     plt.plot(iterations, temps, marker="o")
 
     plt.title("Temps d'exécution")
-    plt.xlabel("Itérations")
+    plt.xlabel("Nombre d'itérations")
     plt.ylabel("Temps (s)")
 
     plt.grid(True)
     plt.show()
 
-def afficherFourmis()-> None:
+
+def afficherFourmis() -> None:
     """
     afficherFourmis():
 
-        Para :
+        Paramètre :
             - aucun
 
         Création :
-            - génère le nb de fourmis en fct de la meilleure distance
+            - affiche la distance finale en fonction
+              du nombre de fourmis.
 
-    Return :
-        - None
+        Retour :
+            - None
     """
-    
 
     fourmis = lireColonne("fourmis")
     distance = lireColonne("meilleureDistance")
 
     plt.figure("Influence des fourmis")
+
     plt.scatter(fourmis, distance)
 
-    plt.title("Nombre de fourmis")
-    plt.xlabel("Fourmis")
+    plt.title("Influence du nombre de fourmis")
+    plt.xlabel("Nombre de fourmis")
     plt.ylabel("Distance")
 
     plt.grid(True)
     plt.show()
 
-def afficherAlpha()-> None:
+
+def afficherAlpha() -> None:
     """
     afficherAlpha():
 
-        Para :
+        Paramètre :
             - aucun
 
         Création :
-            - génère la variation de ALPHA en fct de la meilleure distance
+            - affiche la distance finale en fonction d'Alpha.
 
-    Return :
-        - None
+        Retour :
+            - None
     """
 
     alpha = lireColonne("alpha")
     distance = lireColonne("meilleureDistance")
 
     plt.figure("Influence Alpha")
+
     plt.scatter(alpha, distance)
 
     plt.title("Influence de Alpha")
@@ -114,24 +158,26 @@ def afficherAlpha()-> None:
     plt.grid(True)
     plt.show()
 
-def afficherBeta()-> None:
+
+def afficherBeta() -> None:
     """
     afficherBeta():
 
-        Para :
+        Paramètre :
             - aucun
 
         Création :
-            - génère la variation de BETA en fct de la meilleure distance
+            - affiche la distance finale en fonction de Beta.
 
-    Return :
-        - None
+        Retour :
+            - None
     """
 
     beta = lireColonne("beta")
     distance = lireColonne("meilleureDistance")
 
     plt.figure("Influence Beta")
+
     plt.scatter(beta, distance)
 
     plt.title("Influence de Beta")
@@ -141,24 +187,27 @@ def afficherBeta()-> None:
     plt.grid(True)
     plt.show()
 
-def afficherEvaporation()-> None:
+
+def afficherEvaporation() -> None:
     """
     afficherEvaporation():
 
-        Para :
+        Paramètre :
             - aucun
 
         Création :
-            - génère la variation de EVAPORATION en fct de la meilleure distance
+            - affiche la distance finale en fonction
+              du taux d'évaporation.
 
-    Return :
-        - None
+        Retour :
+            - None
     """
 
     evaporation = lireColonne("evaporation")
     distance = lireColonne("meilleureDistance")
 
     plt.figure("Influence Evaporation")
+
     plt.scatter(evaporation, distance)
 
     plt.title("Influence de l'évaporation")
@@ -168,64 +217,119 @@ def afficherEvaporation()-> None:
     plt.grid(True)
     plt.show()
 
-def afficherGraphe(villes: dict, meilleurChemin: list)->None:
+
+def afficherGraphe(villes: dict[int, tuple[int, int]], meilleurChemin: list[int]) -> None:
     """
     afficherGraphe(villes, meilleurChemin):
 
-        Para :
-            - aucun
-            - villes             (dict)    : dict des villes de la forme-> {1: (x,y)}
-            - meilleurChemin     (list)    : liste du meilleur chemin-> [1,48,45,2,10,78,1]
-        Création :
-            - génère le graphe du meilleur rendu pour que cela soit plus visuel pour les users
+        Paramètres :
+            - villes (dict) :
+                dictionnaire des villes sous la forme :
+                {id_ville: (x, y)}
 
-    Return :
-        - None
+            - meilleurChemin (list) :
+                meilleur chemin trouvé par l'ACO.
+
+        Création :
+            - affiche les villes.
+            - affiche le meilleur chemin trouvé.
+
+        Retour :
+            - None
     """
 
     plt.figure("Meilleur chemin")
 
-    plt.title("Simulation d'un meilleur chemin")
+    plt.title("Meilleur chemin trouvé par l'ACO")
     plt.xlabel("x")
     plt.ylabel("y")
 
-    for idVille, coordonner in villes.items():
-        x, y = coordonner
+    # Affichage des villes
+    for idVille, coordonnees in villes.items():
+
+        x, y = coordonnees
+
         plt.scatter(x, y, s=15)
 
-        # On décale un peu le texte pour que ce soit plus visible
-        # Ah mon gars, si y a bcp de villes le graphe ressemblerai a rien donc on affiche le texte que si c'est pas bcp de villes
+        # On affiche les identifiants uniquement
+        # lorsqu'il n'y a pas trop de villes.
         if len(villes) <= 25:
-            plt.text(x + 1, y + 1, str(idVille) )
+            plt.text(x + 1,y + 1, str(idVille))
 
-    for ville in range(len(meilleurChemin)-1):
-        x1, y1 = villes[meilleurChemin[ville]]
-        x2, y2 = villes[meilleurChemin[ville + 1]]
+    # Affichage du chemin
+    for i in range(len(meilleurChemin) - 1):
 
-        # On trace un segment entre les 2 coordonnées     
+        villeActuelle = meilleurChemin[i]
+        villeSuivante = meilleurChemin[i + 1]
+
+        x1, y1 = villes[villeActuelle]
+        x2, y2 = villes[villeSuivante]
+
         plt.plot([x1, x2], [y1, y2], linewidth=1, color="red")
-     
 
     plt.grid(False)
     plt.show()
 
+
 if __name__ == "__main__":
     # python3 visualisation.py
 
-    import tools
-    import statistiques
+    print("------------------------------")
+    print("       VISUALISATION ACO")
+    print("------------------------------")
+
+    configuration = statistiques.ConfigurationACO()
 
     try:
 
-        resultat = statistiques.statistic()
+        # Vérification de la configuration par défaut
+        statistiques.verifierConfiguration(configuration)
 
-        if resultat != None:
+        # Affichage de la configuration
+        statistiques.afficherConfiguration(configuration)
 
-            meilleurChemin, _, villes = resultat
+        print("\nQuel paramètre voulez-vous faire varier ?")
+        print("1 - Nombre de fourmis")
+        print("2 - Nombre d'itérations")
+        print("3 - Alpha")
+        print("4 - Beta")
+        print("5 - Evaporation")
+        print("6 - Q")
 
-            choixUser: int = int(input("Afficher statistiques / afficher graphe [1,2] : "))
+        choixUser = int(input("\nVotre choix : "))
 
-            if choixUser == 1:
+        minimum = float(input("Valeur minimum : "))
+        maximum = float(input("Valeur maximum : "))
+        pas = float(input("Pas : "))
+
+        # Lancement des expérimentations
+        resultat = statistiques.statistic(configuration, choixUser, minimum, maximum, pas)
+
+        if resultat is not None:
+
+            meilleurChemin, distanceFinal, villes, historiqueFinal = resultat
+
+            print("\n------------------------------")
+            print("     SIMULATIONS OVER")
+            print("------------------------------")
+
+            print(f"Distance : {distanceFinal}")
+            print(f"Chemin   : {meilleurChemin}")
+
+            print("\nQue voulez-vous afficher ?")
+            print("1 - Historique final")
+            print("2 - Statistiques")
+            print("3 - Meilleur chemin")
+            print("4 - Tout")
+
+            choixAffichage = int(input("\nVotre choix : "))
+
+            if choixAffichage == 1:
+
+                afficherHistorique(historiqueFinal)
+
+            elif choixAffichage == 2:
+
                 afficherDistance()
                 afficherTemps()
                 afficherFourmis()
@@ -233,11 +337,26 @@ if __name__ == "__main__":
                 afficherBeta()
                 afficherEvaporation()
 
-            elif choixUser == 2:
+            elif choixAffichage == 3:
+
                 afficherGraphe(villes, meilleurChemin)
 
+            elif choixAffichage == 4:
+
+                afficherHistorique(historiqueFinal)
+
+                afficherDistance()
+                afficherTemps()
+                afficherFourmis()
+                afficherAlpha()
+                afficherBeta()
+                afficherEvaporation()
+
+                afficherGraphe(villes, meilleurChemin) 
+
             else:
-                print("Erreur")
+                print("Erreur : choix invalide.")
 
     except ValueError as erreur:
+
         print(f"Erreur : {erreur}")
