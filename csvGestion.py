@@ -11,6 +11,9 @@ Gestion des fichiers CSV pour l'import et l'export des données.
 
 nomFichier: str = "acoData.csv"
 
+entetesCSV: list = ["villes", "fourmis", "iterations", "alpha", "beta", "Q", "evaporation", "meilleureDistance", "tempsExecution"]
+
+
 def creeCsv() -> None:
     """
     creeCsv()
@@ -26,29 +29,28 @@ def creeCsv() -> None:
         - None
     """
 
-    global nomFichier
-
     if not os.path.isfile(nomFichier):
 
-        # os.path.isfile dit si le fichier xxxx existe ou non (alors on répond TRUE/ FALSE)
+        # os.path.isfile dit si le fichier xxxx existe ou non (alors on répond TRUE / FALSE)
         with open(nomFichier, mode="w", newline="") as csvfile:
 
             writer = csv.writer(csvfile)
-            writer.writerow(["villes","fourmis","iterations","alpha","beta", 'Q', "evaporation","meilleureDistance","tempsExecution"])
+            writer.writerow(entetesCSV)
 
-def ajoutCsv(villes: float, fourmis: float, iterations: float, alpha: int, beta: float, evaporation: float, q: float, meilleureDistance: float, tempsExecution: float) -> None:
+
+def ajoutCsv(villes: int, fourmis: int, iterations: int, alpha: float, beta: float, evaporation: float, q: float, meilleureDistance: float, tempsExecution: float) -> None:
     """
     ajoutCsv(villes, fourmis, iterations, alpha, beta, evaporation, q, meilleureDistance, tempsExecution):
 
         Para :
-            - villes (float) : nombre de villes 
-            - fourmis (float) : nombre de fourmis
-            - iterations (float) : nombre d'itérations
+            - villes (int) : nombre de villes
+            - fourmis (int) : nombre de fourmis
+            - iterations (int) : nombre d'itérations
             - alpha (float) : constante
             - beta (float) : constante
             - evaporation (float) : constante
             - q (float) : constante
-            - meilleureDistance (float) : meilleur distance entre le point A et B (en m)
+            - meilleureDistance (float) : meilleure distance entre le point A et B
             - tempsExecution (float) : temps pour trouver la meilleure distance (en sec)
 
         Création :
@@ -58,11 +60,15 @@ def ajoutCsv(villes: float, fourmis: float, iterations: float, alpha: int, beta:
         - None
     """
 
-    global nomFichier
+    # On vérifie que le fichier existe avec son en-tête
+    creeCsv()
 
     with open(nomFichier, mode="a", newline="") as csvfile:
+
         writer = csv.writer(csvfile)
-        writer.writerow([villes, fourmis, iterations, alpha, beta, evaporation, q, meilleureDistance, tempsExecution])
+
+        writer.writerow([villes, fourmis, iterations, alpha, beta, q, evaporation, meilleureDistance, tempsExecution])
+
 
 def lireCsv() -> list:
     """
@@ -73,14 +79,18 @@ def lireCsv() -> list:
 
             Création :
                 - lit toutes les données du CSV
+
         Return :
             - liste des données
     """
-    
-    global nomFichier
-    donnees : list = list()
+
+    # On vérifie que le fichier existe
+    creeCsv()
+
+    donnees: list = list()
 
     with open(nomFichier, mode="r", newline="") as csvfile:
+
         reader = csv.reader(csvfile)
 
         for ligne in reader:
@@ -88,22 +98,31 @@ def lireCsv() -> list:
 
     return donnees
 
-def lireColonne(nomColonne: str)->list:
+
+def lireColonne(nomColonne: str) -> list:
     """
     lireColonne(nomColonne):
 
             Para :
-                - nomColonne (string) :  un nom de colonne parmit : villes, fourmis, iterations, alpha, beta,  Q,evaporation, meilleureDistance, tempsExecution
+                - nomColonne (string) : un nom de colonne parmi :
+                  villes, fourmis, iterations, alpha, beta,
+                  Q, evaporation, meilleureDistance, tempsExecution
 
             Explication :
-                - choisit l'entete et en fonction de celui-ci récupère le paramètre
+                - choisit l'entête et en fonction de celui-ci récupère le paramètre
+
         Return :
             - liste des données en fct de la colonne
-    
+
     """
+
     donnees = lireCsv()
 
     entetes = donnees[0]
+
+    if nomColonne not in entetes:
+        raise ValueError(f"La colonne '{nomColonne}' n'existe pas dans le CSV.")
+
     indice = entetes.index(nomColonne)
 
     colonne = []
@@ -113,62 +132,67 @@ def lireColonne(nomColonne: str)->list:
 
     return colonne
 
-def sauvegarderCSV(nomFichier: str)-> None:
-    """     
+
+def sauvegarderCSV(nomFichier: str) -> None:
+    """
     sauvegarderCSV(nomFichier):
 
             Para :
-                - nomFichier (string) :  le fichier qu'on sauvegarde
+                - nomFichier (string) : le fichier qu'on sauvegarde
 
             Explication :
-                - on sauvegarde le fichier dans le repertoire sauvegarde avec comme nonmle datetime (l'heure de la sauvegarde)
+                - on sauvegarde le fichier dans le repertoire sauvegarde
+                  avec comme nom le datetime (l'heure de la sauvegarde)
+
         Return :
             - None
-    
+
     """
-    
-    # On vérifie si le dossier existe sinon on le crée
+
+    # On vérifie si le dossier existe sinon on le crée
     os.makedirs("sauvegardes", exist_ok=True)
-    
+
     temps = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
     nomSauvegarde = os.path.join("sauvegardes", f"{temps}.csv")
 
     shutil.copy(nomFichier, nomSauvegarde)
-    
-def viderCSV(nomFichier: str)-> None:
+
+
+def viderCSV(nomFichier: str) -> None:
     """
     viderCSV(nomFichier):
 
             Para :
-                - nomFichier (string) :  le fichier a vider 
+                - nomFichier (string) : le fichier à vider
 
             Explication :
-                - on vide le fichier sauf l'entete
+                - on vide le fichier sauf l'entête
+
         Return :
             - None
-    
+
     """
+
     with open(nomFichier, mode="w", newline="") as csvfile:
 
-            writer = csv.writer(csvfile)
-            writer.writerow(["villes","fourmis","iterations","alpha","beta", 'Q', "evaporation","meilleureDistance","tempsExecution"])
+        writer = csv.writer(csvfile)
+        writer.writerow(entetesCSV)
+
 
 if __name__ == "__main__":
     # python3 csvGestion.py
 
-
     creeCsv()
 
-    ajoutCsv(100, 100, 50, 1, 1, 1,1, 934, 6)
+    ajoutCsv(100, 100, 50, 1, 1, 1, 1, 934, 6)
 
     donnees = lireCsv()
 
     for ligne in donnees:
         print(ligne)
 
-    print(lireColonne('meilleureDistance'))
-
+    print("Meilleur distance: ", lireColonne("meilleureDistance"))
 
     sauvegarderCSV(nomFichier)
     viderCSV(nomFichier)
