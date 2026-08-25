@@ -277,7 +277,7 @@ def menuCSV() -> None:
         print("│ [1] Lire les données                        │")
         print("│ [2] Sauvegarder le CSV                      │")
         print("│ [3] Vider le CSV                            │")
-        print("│ [0] Retour                                   │")
+        print("│ [0] Retour                                  │")
         print("└─────────────────────────────────────────────┘")
 
         choix = int(input("\nVotre choix : "))
@@ -351,11 +351,11 @@ def main() -> None:
                 
                 choixUser = int(input("Paramètre à faire varier : "))
 
-                maximum = float(input("Valeur minimum : "))
+                minimum = float(input("Valeur minimum : "))
 
-                minimum = float(input("Valeur maximum : "))
+                maximum = float(input("Valeur maximum : "))
 
-                pas = float(input("PAS : "))
+                pas = float(input("Pas : "))
 
                 resultatStatistique = statistiques.statistic(configuration, choixUser, minimum, maximum, pas)
 
