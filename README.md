@@ -4,14 +4,17 @@
 Le projet **Ant Colony Optimization (ACO)** est une simulation du comportement des fourmis.
 
 Le but est de résoudre des problèmes d’optimisation (comme trouver le chemin le plus court entre plusieurs villes ou le meilleur chemin pour envoyer des paquets IP avec RIP/ OSPF (Réseaux)) en imitant la nature :
-les fourmis déposent des phéromones pour guider les autres.
+- les fourmis déposent des phéromones pour guider les autres.
+
+Le projet permet de trouver une bonne solution
+au problème du voyageur de commerce (TSP).
 
 ---
 
 ## Idée générale
 
 Voici le fonctionnement :
-- Chaque fourmi explore un réseau de points (villes)
+- Chaque fourmi explore un réseau de points/ noeuds (villes)
 - Elle choisit ses chemins en fonction :
   des phéromones (expérience d'une autre fourmi)
   de la distance
@@ -100,6 +103,8 @@ Permet d’interpréter les résultats.
 
 Simulation graphique pour rendre ça plus beau.
 
+( OPT)
+
 ---
 
 ### README.md
@@ -117,7 +122,7 @@ Le but est d’expliquer le projet et comment il est structuré.
 - **NumPy** -> calculs rapides sur matrices
 - **Matplotlib** -> visualisation des chemins et résultats
 - **CSV** -> stockage des résultats d’expérimentations
-- (optionnel) interface graphique avec Tkinter ou Pygame (si j'ai le temps)
+- (optionnel) interface graphique avec Tkinter ou Pygame( si j'ai le temps)
 
 ---
 
@@ -144,3 +149,12 @@ Elles laissent des traces.
 Les bonnes solutions sont renforcées.
 Le système finit par trouver un bon chemin sans être programmé pour ça.
 
+## Exécution / téléchargement
+
+### Cas 1: Linux/ Mac OS
+
+> COMMENTAIRE
+
+### Cas 2: Windows
+
+> COMMENTAIRE
