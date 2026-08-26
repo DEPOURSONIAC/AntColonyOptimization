@@ -192,7 +192,6 @@ def statistic(configuration: ConfigurationACO, choixUser: int, minimum: float, m
 
     return cheminFinal, float(distanceFinal), villes, historiqueFinal
 
-
 if __name__ == "__main__":
     # python3 statistiques.py
 

@@ -185,7 +185,7 @@ if __name__ == "__main__":
 
     creeCsv()
 
-    ajoutCsv(100, 100, 50, 1, 1, 1, 1, 934, 6)
+    ajoutCsv(100, 100, 50, 1, 1, 1, 1, 100, 10)
 
     donnees = lireCsv()
 
