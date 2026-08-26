@@ -96,15 +96,6 @@ Permet de stocker et réutiliser les résultats de simulation.
 
 Permet d’interpréter les résultats.
 
-### xxxxx.py (test/ beta)
--  Utilisation de Pygame
--  Design améliorer
--  Visualisation des résultats
-
-Simulation graphique pour rendre ça plus beau.
-
-( OPT)
-
 ---
 
 ### README.md
@@ -117,7 +108,7 @@ Le but est d’expliquer le projet et comment il est structuré.
 
 ---
 
-## Outils que je vais utiliser
+## Outils que j'utilise
 - **Python** -> langage principal
 - **NumPy** -> calculs rapides sur matrices
 - **Matplotlib** -> visualisation des chemins et résultats
@@ -142,6 +133,31 @@ Le but est d’expliquer le projet et comment il est structuré.
 
 ---
 
+## Prérequis
+
+### Python
+
+- Python 3.x
+- NumPy
+- Matplotlib
+
+Les dépendances peuvent être installées avec :
+
+```bash
+pip install <nom_de_la_dependance>
+```
+
+### Utilisation avec Python
+
+Après avoir installé Python, se placer dans le dossier du projet  et l'éxécuter:
+
+```bash
+cd <nom_du_repertoire>
+
+python main.py
+```
+
+
 ## GROSSO MODO
 Des fourmis explorent un chemin( plusieurs villes).
 
@@ -149,12 +165,54 @@ Elles laissent des traces.
 Les bonnes solutions sont renforcées.
 Le système finit par trouver un bon chemin sans être programmé pour ça.
 
-## Exécution / téléchargement
+## Notes annexe
 
-### Cas 1: Linux/ Mac OS
+### Dépot GITHUB
 
-> COMMENTAIRE
+### Exécution / téléchargement
 
-### Cas 2: Windows
+#### Cas 1 : Linux / Mac OS
 
-> COMMENTAIRE
+Une version compilée pour Linux est disponible dans le projet.
+
+**Création de l'exécutable :**
+
+```bash
+pip3 install pyinstaller
+pyinstaller --onefile --name ACO main.py
+```
+
+**Après téléchargement :**
+
+Il faut changer les droits pour rendre le fichier exécutable :
+
+```bash
+chmod +x ACO
+./ACO
+```
+
+#### Cas 2 : Windows
+
+Une version compilée pour Windows est disponible dans le projet.
+
+**Création de l'exécutable :**
+
+```powershell
+pip3 install pyinstaller
+pyinstaller --onefile --icon=logo.ico --name ACO main.py
+```
+
+**Après téléchargement :**
+
+Lancer simplement l'exécutable :
+
+```powershell
+.\ACO.exe
+```
+
+
+### Auteurs
+
+* Louis LE CAILL, étudiant en prépa
+
+* DEPOURSONIAC, étudiant en R&T parcours cyber

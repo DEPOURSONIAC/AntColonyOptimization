@@ -407,7 +407,7 @@ def main() -> None:
 
                 time.sleep(1)
 
-                print("\nMerci d'avoir utilisé ACO, a bientôt...")
+                print("\nMerci d'avoir utilisé ACO, à bientôt...")
                 print(greek(5))
 
                 state = False
