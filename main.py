@@ -52,9 +52,9 @@ def greek(n: int) -> str:
     return s
 
 
-def afficherFourmi() -> None:
+def afficherFourmi1() -> None:
     """
-    Affiche une petite fourmi ASCII.
+    Affiche une grande fourmi ASCII.
     """
 
     print(r"""
@@ -75,12 +75,33 @@ def afficherFourmi() -> None:
     """)
 
 
+def afficherFourmi2() -> None:
+    """
+    Affiche une petite fourmi ASCII.
+    """
+
+    print(r"""
+
+ \       /
+  \     /  
+   \.-./ 
+  (o\^/o)  _   _   _     __
+   ./ \.\ ( )-( )-( ) .-'  '-.
+    {-} \(//  ||   \\/ (   )) '-.
+         //-__||__.-\\.       .-'
+        (/    ()     \)'-._.-'
+        ||    ||      \\
+       ('    ('       ')
+
+    """)
+
+
 def animationDemarrage() -> None:
     """
     Affiche l'écran de démarrage avec une petite animation.
     """
 
-    afficherFourmi()
+    afficherFourmi1()
 
     print(greek(9))
 
@@ -251,9 +272,7 @@ def menuVisualisation(resultat: tuple | None) -> None:
             else:
                 _, _, _, historiqueDistance, _ = resultat
 
-                visualisation.afficherHistorique(
-                    historiqueDistance
-                )
+                visualisation.afficherHistorique(historiqueDistance)
 
         elif choix == 0:
             state = False
@@ -348,8 +367,10 @@ def main() -> None:
             elif choix == 2:
 
                 configuration = ConfigurationACO(nombreVilles = int(input("\nNombre de villes : ")))
-                
-                choixUser = int(input("Paramètre à faire varier : "))
+
+                print("""\nParamètre à faire varier :\n\t[1] Nombre de fourmis\n\t[2] Nombre d'itérations\n\t[3] ALPHA\n\t[4] BETA\n\t[5] EVAPORATION\n\t[6] Q""")
+
+                choixUser = int(input("\nParamètre à faire varier : "))
 
                 minimum = float(input("Valeur minimum : "))
 
@@ -359,10 +380,11 @@ def main() -> None:
 
                 resultatStatistique = statistiques.statistic(configuration, choixUser, minimum, maximum, pas)
 
-
                 if resultatStatistique is not None:
 
                     cheminFinal, distanceFinal, villes, historiqueFinal = resultatStatistique
+
+                    resultat = (cheminFinal, distanceFinal,None, historiqueFinal, villes)
 
                     print("\n\tMeilleur résultat de l'étude :")
                     print(f"Distance : {distanceFinal}")
@@ -379,7 +401,7 @@ def main() -> None:
             elif choix == 0:
 
                 print("\n")
-                afficherFourmi()
+                afficherFourmi2()
 
                 print("Simulation OVER...")
 
@@ -406,4 +428,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     # python3 main.py
+
     main()
