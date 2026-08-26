@@ -133,6 +133,40 @@ Le but est d’expliquer le projet et comment il est structuré.
 
 ---
 
+## Arborescence  
+
+~~~
+AntColonyOptimization-ACO/
+│
+├── main.py
+├── acoData.csv
+├── README.md
+│
+├── modules/
+│   ├── __init__.py
+│   ├── moduleAco.py
+│   ├── statistiques.py
+│   ├── visualisation.py
+│   ├── csvGestion.py
+│   └── tools.py
+│
+├── assets/
+│   └── logo.ico
+│
+└── docs/
+    ├── formuleACO.pdf
+    └── documentationProjet.pdf
+~~~
+
+#### Explication
+* Exécutable -> releases/
+* Code        -> modules/
+* Entrée -> main.py
+* Données -> acoData.csv
+* Ressources  -> assets/
+* Théorie     -> docs/
+* Documentation  -> README.md
+
 ## Prérequis
 
 ### Python
@@ -199,7 +233,7 @@ Une version compilée pour Windows est disponible dans le projet.
 
 ```powershell
 pip3 install pyinstaller
-pyinstaller --onefile --icon=logo.ico --name ACO main.py
+pyinstaller --onefile --icon="assets/logo.ico" --name ACO main.py
 ```
 
 **Après téléchargement :**

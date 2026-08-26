@@ -1,0 +1,45 @@
+Je veux rendre mon projet Python "Ant Colony Optimization (ACO)" facilement lançable sous Linux.
+
+Structure actuelle du projet :
+
+AntColonyOptimization/
+├── main.py
+├── logo.ico
+├── modules/
+│   ├── moduleAco.py
+│   ├── statistiques.py
+│   ├── visualisation.py
+│   ├── csvGestion.py
+│   └── ...
+└── ...
+
+Je veux obtenir le comportement suivant :
+
+1. L'utilisateur ouvre le dossier du projet.
+2. Il voit une icône/raccourci "Ant Colony Optimization" avec le logo du projet.
+3. Il double-clique dessus.
+4. Un terminal Linux s'ouvre automatiquement.
+5. Le programme `main.py` se lance avec Python 3.
+6. Le terminal reste ouvert pendant l'exécution du programme.
+7. Quand le programme se termine, le terminal ne doit pas se fermer immédiatement afin que l'utilisateur puisse voir le résultat.
+8. Les imports Python comme `from modules import moduleAco` doivent fonctionner correctement.
+9. Les chemins relatifs du projet doivent fonctionner quel que soit l'endroit depuis lequel l'utilisateur lance le raccourci.
+10. Je veux une solution propre et adaptée à Linux.
+
+Le projet contient actuellement `logo.ico`. Explique-moi aussi s'il faut le convertir en PNG/SVG pour l'utiliser comme icône Linux et, si oui, donne-moi la commande exacte pour le convertir.
+
+Je veux que tu me donnes :
+- le contenu exact du fichier `lancerACO.sh`
+- le contenu exact du fichier `lancerACO.desktop`
+- les commandes Linux exactes pour rendre les fichiers exécutables
+- où placer le fichier `.desktop`
+- comment faire pour que l'icône soit visible sur le bureau
+- comment tester que tout fonctionne
+- les éventuels problèmes de permissions Linux et comment les résoudre
+
+IMPORTANT :
+- Ne modifie pas mon code Python inutilement.
+- Ne transforme pas mon projet en application compilée.
+- Je veux simplement un lanceur Linux avec mon logo qui ouvre un terminal et exécute `main.py`.
+- Utilise des chemins relatifs ou une méthode robuste basée sur l'emplacement du script afin que le projet reste portable.
+- Explique chaque étape simplement, comme si je faisais la manipulation moi-même dans le terminal.
