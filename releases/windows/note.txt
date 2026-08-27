@@ -1,0 +1,6 @@
+Ant Colony Optimization (ACO)
+
+Version compilée pour Windows.
+
+Pour lancer le programme, double-cliquez sur ACO.exe.
+Python n'est pas nécessaire.
