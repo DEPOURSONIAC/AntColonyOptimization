@@ -151,7 +151,17 @@ AntColonyOptimization-ACO/
 │   └── tools.py
 │
 ├── assets/
-│   └── logo.ico
+│   ├── logo.ico
+│   └── logo.png
+│
+├── releases/
+│   ├── linux/
+│   │   ├── ACO
+│   │   └── install.sh
+│   │
+│   └── windows/
+│       ├── ACO.exe
+│       └── note.txt
 │
 └── docs/
     ├── formuleACO.pdf
@@ -203,25 +213,30 @@ Le système finit par trouver un bon chemin sans être programmé pour ça.
 
 ### Dépot GITHUB
 
+
+Pour récupérer le projet :
+
+```bash
+git clone https://github.com/DEPOURSONIAC/AntColonyOptimization.git
+```
+
+
 ### Exécution / téléchargement
 
 #### Cas 1 : Linux / Mac OS
-
 Une version compilée pour Linux est disponible dans le projet.
 
 **Création de l'exécutable :**
 
 ```bash
-pip3 install pyinstaller
-pyinstaller --onefile --name ACO main.py
+cd releases/linux
+chmod +x install.sh && ./install.sh
 ```
 
-**Après téléchargement :**
-
-Il faut changer les droits pour rendre le fichier exécutable :
+**Pour le lancer :**
 
 ```bash
-chmod +x ACO
+cd releases/linux
 ./ACO
 ```
 
@@ -234,6 +249,8 @@ Une version compilée pour Windows est disponible dans le projet.
 ```powershell
 pip3 install pyinstaller
 pyinstaller --onefile --icon="assets/logo.ico" --name ACO main.py
+# ou
+pyinstaller --onefile --icon="assets/logo.ico" --name ACO --distpath releases/windows main.py
 ```
 
 **Après téléchargement :**
